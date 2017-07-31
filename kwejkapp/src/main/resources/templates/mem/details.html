@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="/style.css"/>
+    <title>List</title>
+</head>
+<body class="container">
+
+<div th:replace="shared/nav"></div>
+
+<div class="row">
+    <div class="col-xs-12 text-center" th:object="${mem}">
+        <h1 th:text="${mem.title}">Tytuł</h1>
+        <img th:src="@{/files/{filename}(filename=${mem.imagePath})}"/>
+        <p th:text="${mem.description}">Opis</p>
+        Dodano: <p th:text="${mem.timestamp}"></p>
+        Licznik odwiedzin: <p th:text="${mem.visitCount}"></p>
+    </div>
+</div>
+
+<h2>Dodaj komentarz:</h2>
+<form class="form-horizontal" th:object="${comment}" th:action="@{/comment}" method="post">
+    <input type="hidden" name="memId" th:value="${mem.id}"/>
+    <div class="input-group" th:classappend="${#fields.hasErrors('nickname')} ? 'has-error' : ''">
+        <label for="nickname">Nick:</label>
+        <input class="form-control" type="text" th:field="*{nickname}" id="nickname" name="nickname"/>
+        <div class="help-block" th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}"></div>
+    </div>
+    <div class="input-group" th:classappend="${#fields.hasErrors('text')} ? 'has-error' : ''">
+        <label for="text">Komentarz:</label>
+        <textarea class="form-control" th:field="*{text}" id="text" name="text">
+        </textarea>
+        <div class="help-block" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></div>
+    </div>
+
+    <button type="submit" class="btn btn-default">Dodaj</button>
+</form>
+
+
+<h2>Komentarze:</h2>
+<div th:each="comm : ${mem.comments}">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <p>Dodał: <span th:text="${comm.nickname}">nickanme</span></p>
+            <p>Data: <span th:text="${comm.timestamp}">timestamp</span></p>
+            <p th:text="${comm.text}">Treść</p>
+        </div>
+    </div>
+</div>
+
+<script
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+</html>

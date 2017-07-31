@@ -1,0 +1,8 @@
+2017-06-25 11:54:00 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLException: Błąd składniowy w wyrażeniu SQL "DESC[*] COMMENT"; oczekiwano "DELETE, DROP, DECLARE, DEALLOCATE, {"
+Syntax error in SQL statement "DESC[*] COMMENT"; expected "DELETE, DROP, DECLARE, DEALLOCATE, {"; SQL statement:
+DESC COMMENT [42001-195]
+2017-06-25 11:54:06 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLException: Błąd składniowy w wyrażeniu SQL "DESCRIBE[*] COMMENT"; oczekiwano "DELETE, DROP, DECLARE, DEALLOCATE, {"
+Syntax error in SQL statement "DESCRIBE[*] COMMENT"; expected "DELETE, DROP, DECLARE, DEALLOCATE, {"; SQL statement:
+DESCRIBE COMMENT [42001-195]
